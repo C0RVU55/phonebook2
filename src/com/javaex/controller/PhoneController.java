@@ -87,6 +87,14 @@ public class PhoneController extends HttpServlet {
 		} else if ("uform".equals(action)) { // 수정 폼 forward
 			System.out.println("수정 폼 처리"); 
 			
+			// 파라미터 받아서 dao.getPerson()을 여기서 씀. 수정폼에서 하지말고 여기서 처리한 PhoneVo를 attribute시킴.
+			int id = Integer.parseInt(request.getParameter("id"));
+			PhoneDao pDao = new PhoneDao();
+			PhoneVo perVo = pDao.getPerson(id);
+			
+			// 받은 파라미터로 원하는 사람 데이터만 뽑은 PhoneVo를 attribute시킴.
+			request.setAttribute("pVo", perVo);
+			
 			RequestDispatcher rd = request.getRequestDispatcher("./WEB-INF/updateForm.jsp");
 			rd.forward(request, response);
 			

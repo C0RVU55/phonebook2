@@ -6,8 +6,12 @@
 <%
 	int personId = Integer.parseInt(request.getParameter("id")); //id파라미터를 가지고 들어옴. 이게 수정할 데이터 조건이라서 필수.
 
-	PhoneDao pDao = new PhoneDao();
-	PhoneVo pVo = pDao.getPerson(personId); 
+	// 위 id 파라미터와 attribute한 PhoneVo를 받음. 
+	PhoneVo pVo = (PhoneVo)request.getAttribute("pVo");
+	
+	// 포워드받는 jsp파일은 최대한 db랑 연결 안 하고 html로만 짜는 게 좋음.
+	// PhoneDao pDao = new PhoneDao();
+	// PhoneVo pVo = pDao.getPerson(personId); 
 %>
 
 <!DOCTYPE html>
@@ -28,7 +32,7 @@
 		이름(name) : <input type="text" name="name" value="<%=pVo.getName() %>"><br> 
 		핸드폰(hp) : <input type="text" name="hp" value="<%=pVo.getHp() %>"><br>
 		회사(company) : <input type="text" name="company" value="<%=pVo.getCompany() %>"><br>
-		코드(id) : <input type="hidden" name="id" value="<%=pVo.getPersonId() %>"> <br>
+		코드(id) : <input type="hidden" name="id" value="<%=personId %>"> <br>
 		
 		action <input type="text" name="action" value="update"> <br>
 		
